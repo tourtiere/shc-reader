@@ -64,16 +64,16 @@ export default (props: Props) => {
                 if (heavyFile === null) return;
                 setIsLoading(true);
 
-                imageCompression(heavyFile, { maxSizeMB: 0.1 })
+                var worker = new Worker("/qr-scanner-worker.min.js");
+
+                imageCompression(heavyFile, { maxSizeMB: 0.2, useWebWorker: true })
                     .then((file) =>
-                        QrScanner.scanImage(file, {}, undefined, undefined)
+                        QrScanner.scanImage(file, {}, worker)
                             .then((result) => {
                                 const shc = extractCode(result);
                                 if (shc) setPayload(shc);
                             })
                             .catch((reason) => {
-                                debugger;
-
                                 setError(reason);
                             })
                     )
