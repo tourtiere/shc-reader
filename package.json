@@ -7,7 +7,7 @@
 		"postbuild": "react-snap",
 		"dev": "npm run clean && webpack --config ./webpack.config.js --mode development",
 		"dev:watch": "npm run clean && webpack --config ./webpack.config.js --mode development --watch",
-		"start": "webpack serve --config ./webpack.config.js --mode development --host 0.0.0.0",
+		"start": "webpack serve --config ./webpack.config.js --mode development --host 0.0.0.0 --disable-host-check --https",
 		"clean": "rimraf ./docs"
 	},
 	"alias": {
@@ -15,9 +15,13 @@
 	},
 	"license": "ISC",
 	"dependencies": {
-		"preact": "^10.5.13"
+		"buffer": "^6.0.3",
+		"pako": "^2.0.3",
+		"preact": "^10.5.13",
+		"qr-scanner": "^1.2.0"
 	},
 	"devDependencies": {
+		"@types/pako": "^1.0.1",
 		"copy-webpack-plugin": "^8.0.0",
 		"css-loader": "^5.2.6",
 		"file-loader": "^6.2.0",

@@ -1,14 +1,17 @@
 import { h } from "preact";
-import { useContext } from "preact/hooks";
-import { ScanContext } from "providers/scan";
-import "../static/GitHub_Logo.png";
+import Scanner from "components/Scanner/Scanner";
+import Output from "components/Output/Output";
+import "static/GitHub_Logo.png";
 
 export default () => {
-    const { setPayload } = useContext(ScanContext);
-
     return (
-        <div className={"home-page"}>
-            <p>Hello world</p>
+        <div>
+            <h1 style={{ textAlign: "center" }}>Smart Health Card Reader</h1>
+            <p style={{ textAlign: "center" }}>
+                Select your QR code here. It will not be uploaded.
+            </p>
+            <Scanner />
+            <Output />
         </div>
     );
 };
