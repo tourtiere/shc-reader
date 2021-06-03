@@ -1,9 +1,8 @@
 {
 	"compilerOptions": {
 		"outDir": "./dist",
-		"target": "ES2017",
+		"target": "ES6",
 		"moduleResolution": "node",
-		"module": "ESNext",
 		"noImplicitAny": true,
 		"removeComments": true,
 		"sourceMap": true,
@@ -11,6 +10,7 @@
 		"jsx": "react",
 		"jsxFactory": "h",
 		"baseUrl": "./src",
+		"allowSyntheticDefaultImports":true,
 	},
 	"suppressImplicitAnyIndexErrors": true,
 	"lib": [
