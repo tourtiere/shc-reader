@@ -1,12 +1,12 @@
-import { h } from "preact";
-import { useContext, useEffect, useRef, useState } from "preact/hooks";
-import { ScanContext } from "providers/scan";
+import {h} from "preact";
+import {useContext, useEffect, useRef, useState} from "preact/hooks";
+import {ScanContext} from "providers/scan";
 import QrScanner from "qr-scanner"; // if installed via package and bundling with a module bundler like webpack or rollup
 
 import imageCompression from "browser-image-compression";
 import "static/loading.gif";
 import "./Scanner.scss";
-import { Buffer } from "buffer";
+import {Buffer} from "buffer";
 import SHC from "types/SHC";
 const pako = require("pako");
 
@@ -19,15 +19,17 @@ const extractCode = (qr: string) => {
         .join("");
     const payload = token.split(".")[1];
     const buff = Buffer.from(payload, "base64");
-    const json = pako.inflateRaw(buff, { to: "string" });
-    return JSON.parse(json) as SHC;
+    const json = pako.inflateRaw(buff, {to: "string"});
+    const obj = JSON.parse(json) as SHC;
+    console.log(obj)
+    return obj;
 };
 
 interface Props {}
 export default (props: Props) => {
     const scannerRef = useRef<HTMLVideoElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const { setPayload } = useContext(ScanContext);
+    const {setPayload} = useContext(ScanContext);
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
@@ -66,7 +68,7 @@ export default (props: Props) => {
 
                 var worker = new Worker("/qr-scanner-worker.min.js");
 
-                imageCompression(heavyFile, { maxSizeMB: 0.2, useWebWorker: true })
+                imageCompression(heavyFile, {maxSizeMB: 0.2, useWebWorker: true})
                     .then((file) =>
                         QrScanner.scanImage(file, {}, worker)
                             .then((result) => {
@@ -87,8 +89,8 @@ export default (props: Props) => {
             <div>
                 <input type="file" ref={fileInputRef} />
             </div>
-            <p style={{ color: "red" }}>{error}</p>
-            <p>{isLoading ? <img style={{ width: 50, height: 50 }} src="/loading.gif" /> : ""}</p>
+            <p style={{color: "red"}}>{error}</p>
+            <p>{isLoading ? <img style={{width: 50, height: 50}} src="/loading.gif" /> : ""}</p>
         </div>
     );
 };
